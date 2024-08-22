@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn, signOut } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth-no-edge";
 import prisma from "@/lib/db";
 import { checkAuth, getPetByID } from "@/lib/server-utils";
 import { authSchema, petIDSchema, petSchema, TAuth } from "@/lib/validations";
