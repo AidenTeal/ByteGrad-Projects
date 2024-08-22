@@ -20,25 +20,19 @@ export async function POST(request: Request) {
   }
 
   // fulfill order
-  try {
-    switch (event.type) {
-      case "checkout.session.completed":
-        await prisma.user.update({
-          where: {
-            email: data.data.object.customer_email,
-          },
-          data: {
-            hasAccess: true,
-          },
-        });
-        break;
-      default:
-        console.log(`Unhandled event type ${event.type}`);
-    }
-  } catch {
-    return {
-      message: "Could not update users access",
-    };
+  switch (event.type) {
+    case "checkout.session.completed":
+      await prisma.user.update({
+        where: {
+          email: data.data.object.customer_email,
+        },
+        data: {
+          hasAccess: true,
+        },
+      });
+      break;
+    default:
+      console.log(`Unhandled event type ${event.type}`);
   }
 
   // Send a response back to stripe to indicate that the webhook was received
